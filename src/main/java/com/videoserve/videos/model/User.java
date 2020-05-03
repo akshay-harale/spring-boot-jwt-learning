@@ -32,7 +32,6 @@ public class User {
     private long salary;
     @Column
     private int age;
-
     @Column
     private String email;
 
