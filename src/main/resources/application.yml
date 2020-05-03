@@ -1,0 +1,13 @@
+#server.servlet.context-path: /cookie-app
+server.port: 8081
+spring.jpa.hibernate.ddl-auto: update
+app.db.location: ${APP_DB_LOCATION:./db/doc}
+spring.jpa.hibernate.naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+spring.h2.console.settings.web-allow-others: true
+spring.datasource.url: jdbc:h2:${app.db.location}/db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+spring.datasource.driverClassName: org.h2.Driver
+spring.datasource.username: sa
+spring.datasource.password: sa
+spring.datasource.validationQuery: SELECT 1
+spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+spring.h2.console.enabled: true
