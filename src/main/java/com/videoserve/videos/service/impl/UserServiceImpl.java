@@ -1,8 +1,8 @@
 package com.videoserve.videos.service.impl;
 
-import com.videoserve.videos.model.User;
-import com.videoserve.videos.model.UserDto;
+import com.videoserve.videos.model.*;
 import com.videoserve.videos.repo.UserRepo;
+import com.videoserve.videos.repo.ViewStatusRepo;
 import com.videoserve.videos.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +31,9 @@ public class UserServiceImpl implements UserDetailsService , UserService {
 
     @Autowired
     UserRepo userRepo;
+
+    @Autowired
+    ViewStatusRepo viewStatusRepo;
 
     @Autowired
     private BCryptPasswordEncoder bcryptEncoder;
@@ -80,6 +83,20 @@ public class UserServiceImpl implements UserDetailsService , UserService {
             userRepo.save(user);
         }
         return userDto;
+    }
+
+    @Override
+    public void updateVideoStatus(ViewStatusDto status) {
+
+        ViewStatus s = new ViewStatus(status.getVideoName(), status.getUserId(), status.getDuration());
+        s.setKey(new ViewStatusKey(status.getVideoName(),status.getUserId()));
+        viewStatusRepo.save(s);
+    }
+
+    @Override
+    public ViewStatus getVideoStatus(Long userId, String videoName) {
+
+        return viewStatusRepo.findById(new ViewStatusKey(videoName,userId)).orElse(null);
     }
 
     @Override

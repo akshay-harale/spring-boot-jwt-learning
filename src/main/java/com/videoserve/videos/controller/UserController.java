@@ -1,13 +1,14 @@
 package com.videoserve.videos.controller;
 
-import com.videoserve.videos.model.ApiResponse;
-import com.videoserve.videos.model.User;
-import com.videoserve.videos.model.UserDto;
+import com.videoserve.videos.model.*;
 import com.videoserve.videos.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -57,4 +58,28 @@ public class UserController {
         return new ApiResponse<>(HttpStatus.OK.value(), "User deleted successfully.", null);
     }
 
+    @PatchMapping("/video_status")
+    public ResponseEntity<String> updateTime(@RequestBody ViewStatusDto status) {
+        try {
+            userService.updateVideoStatus(status);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body("");
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
+        }
+    }
+    @GetMapping("/video_status/{userId}/{videoName}")
+    public ResponseEntity<?> getStatus(@PathVariable Long userId,@PathVariable String videoName) {
+        try {
+
+            ViewStatus videoStatus = userService.getVideoStatus(userId,videoName);
+            if(videoStatus !=null){
+                return ResponseEntity.status(HttpStatus.OK)
+                        .body(videoStatus);
+            }else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("NOT_FOUND");
+            }
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
+        }
+    }
 }
