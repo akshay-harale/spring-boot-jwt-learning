@@ -15,6 +15,16 @@ public class UserDto {
     private String password;
     private int age;
     private int salary;
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public UserDto setEmail(String email) {
+        this.email = email;
+        return this;
+    }
 
     public int getId() {
         return id;

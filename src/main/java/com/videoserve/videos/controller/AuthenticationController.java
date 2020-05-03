@@ -45,7 +45,7 @@ public class AuthenticationController {
         JwtResponse jwtResponse = new JwtResponse(token,
                 user.getId(),
                 user.getUsername(),
-                "fake@email.com",
+                user.getEmail(),
                 new ArrayList<>());
         return jwtResponse;
     }

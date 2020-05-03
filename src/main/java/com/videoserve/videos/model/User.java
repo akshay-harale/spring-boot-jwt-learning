@@ -33,6 +33,18 @@ public class User {
     @Column
     private int age;
 
+    @Column
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public User setEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
     public int getId() {
         return id;
     }
