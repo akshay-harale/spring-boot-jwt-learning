@@ -1,15 +1,29 @@
 package com.videoserve.videos.controller;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.videoserve.videos.model.*;
 import com.videoserve.videos.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.synchronoss.cloud.nio.multipart.Multipart;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by akshay on 02/05/20
@@ -30,6 +44,7 @@ public class UserController {
     public String publicAll(){
         return "Public Content";
     }
+
 
     @GetMapping("/user")
     public String userAccess() {
