@@ -76,6 +76,7 @@ public class VideoController {
 
     }
 
+    @CrossOrigin
     @RequestMapping(value="/videos/upload", method = RequestMethod.POST,
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) {
@@ -109,6 +110,7 @@ public class VideoController {
     }
 
     @GetMapping("/videos")
+
     public ResponseEntity<?> getVideos() throws IOException {
         org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = principal.getUsername();
